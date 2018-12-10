@@ -11,11 +11,11 @@ module SortableTable
       sort_params = { "#{prefix}sort" => column,
                                   "#{prefix}direction" => direction,
                                   "#{prefix}page" => nil }
-      if options.has_key?(:route_method)
-        goto = options.delete(:route_method).call sort_params
-      else
-        goto = params.merge( sort_params )
-      end
+      goto = if options.has_key?(:route_method)
+               options.delete(:route_method).call sort_params
+             else
+               params.permit("#{prefix}sort", "#{prefix}direction", "#{prefix}page").merge( sort_params )
+             end
       link_to title, goto, options.merge( {class: css_class } )
     end
   end
