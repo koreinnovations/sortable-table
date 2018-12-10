@@ -16,7 +16,9 @@ module SortableTable
              else
                params.permit("#{prefix}sort", "#{prefix}direction", "#{prefix}page", :action).merge( sort_params )
              end
-      link_to title, goto, options.merge( {class: css_class } )
+      querystring = sort_params.map { |k,v| "#{k}=#{v}" }.join('&')
+      link_url = "#{url_for}?#{querystring}"
+      link_to title, link_url, options.merge( {class: css_class } )
     end
   end
 end
