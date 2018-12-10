@@ -14,7 +14,7 @@ module SortableTable
       goto = if options.has_key?(:route_method)
                options.delete(:route_method).call sort_params
              else
-               params.permit("#{prefix}sort", "#{prefix}direction", "#{prefix}page").merge( sort_params )
+               params.permit("#{prefix}sort", "#{prefix}direction", "#{prefix}page", :action).merge( sort_params )
              end
       link_to title, goto, options.merge( {class: css_class } )
     end
